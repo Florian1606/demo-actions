@@ -7,13 +7,15 @@ jobs:
     runs-on: Linux
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up Node
-        uses: npm ci
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 16
+      - run: npm ci
+      - run: npm test
       - name: Build with VSCE
         run: npm run build
-    - name: Publish to Nexus
-    - run: echo "$(find . -name "*.vsix")"
-    - run: echo "$(basename `$(find . -name "*.vsix")`"
+      - name: Publish to Nexus
+        run: |
+          echo "$(find . -name "*.vsix")"
+          echo "$(basename `$(find . -name "*.vsix")`"
