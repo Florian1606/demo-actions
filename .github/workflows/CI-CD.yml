@@ -1,0 +1,19 @@
+#Demo build
+name: CI/CD Demo
+on:
+  [pull_request, push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Node
+        uses: npm ci
+        with:
+          node-version: '16'
+      - name: Build with VSCE
+        run: npm run build
+    - name: Publish to Nexus
+    - run: echo "$(find . -name "*.vsix")"
+    - run: echo "$(basename `$(find . -name "*.vsix")`"
